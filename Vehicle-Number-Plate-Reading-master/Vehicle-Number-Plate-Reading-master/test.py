@@ -5,13 +5,22 @@ import sys
 import pytesseract
 import pandas as pd
 import time
+import os
+
+# Set the image path
+image_path = 'car.jpeg'
+
+# Check if the image file exists
+if not os.path.exists(image_path):
+    print(f"Error: Image file {image_path} not found.")
+    sys.exit()
 
 # Load the image
-image = cv2.imread('car.jpeg')
+image = cv2.imread(image_path)
 
 # Check if the image is loaded correctly
 if image is None:
-    print("Error: Image not found or unable to load.")
+    print("Error: Unable to load image.")
     sys.exit()
 
 # Resize the image
