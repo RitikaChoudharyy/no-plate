@@ -6,12 +6,14 @@ import pytesseract
 import pandas as pd
 import time
 
-# Initialize the webcam
-cap = cv2.VideoCapture(0)  # Use 0 for default webcam, change to another number if you have multiple webcams
-
-# Check if the webcam is opened correctly
-if not cap.isOpened():
-    print("Error: Could not open webcam.")
+# Attempt to open webcam by index
+for idx in range(4):  # Try up to 4 different indices
+    cap = cv2.VideoCapture(idx)
+    if cap.isOpened():
+        print(f"Opened camera at index {idx}")
+        break
+else:
+    print("Error: Could not open any camera.")
     sys.exit()
 
 # Function to process frames from the webcam
