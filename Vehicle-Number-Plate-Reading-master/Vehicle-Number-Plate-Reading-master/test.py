@@ -5,15 +5,14 @@ import sys
 import pytesseract
 import pandas as pd
 import time
+from pathlib import Path
 
 # Attempt to open webcam by index
-for idx in range(4):  # Try up to 4 different indices
-    cap = cv2.VideoCapture(idx)
-    if cap.isOpened():
-        print(f"Opened camera at index {idx}")
-        break
-else:
-    print("Error: Could not open any camera.")
+cap = cv2.VideoCapture(0)  # Use 0 for internal camera, change to other indices as needed
+
+# Check if the webcam is opened correctly
+if not cap.isOpened():
+    print("Error: Could not open webcam. Check camera connections and permissions.")
     sys.exit()
 
 # Function to process frames from the webcam
@@ -64,9 +63,12 @@ def process_frame(frame):
         timestamp = time.asctime(time.localtime(time.time()))
         raw_data = {'date': [timestamp], 'v_number': [text]}
         
+        # Determine the path to save the CSV file
+        csv_path = Path('data.csv')
+        
         # Create or append to CSV file
         df = pd.DataFrame(raw_data, columns=['date', 'v_number'])
-        df.to_csv('data.csv', mode='a', header=not os.path.exists('data.csv'), index=False)
+        df.to_csv(csv_path, mode='a', header=not csv_path.exists(), index=False)
         
         # Print recognized text
         print("Recognized Number Plate:", text)
