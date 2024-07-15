@@ -1,7 +1,7 @@
 numpy
-opencv-python
+opencv-python-headless
 imutils
 pytesseract
 pandas
-opencv-python-headless
+
 
