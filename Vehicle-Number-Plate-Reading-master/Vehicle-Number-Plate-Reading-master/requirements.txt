@@ -4,4 +4,4 @@ imutils
 pytesseract
 pandas
 opencv-python-headless
-Tesseract 4
+Tesseract 
